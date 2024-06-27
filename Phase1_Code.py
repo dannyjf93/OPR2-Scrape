@@ -48,3 +48,4 @@ class BookScraper:
             book_details.append(book_info)
 
         return book_details
+
