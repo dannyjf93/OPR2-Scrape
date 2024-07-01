@@ -25,7 +25,7 @@ product_info = table.findAll('td')
 #Create variables for information needed
 bs_descriptions = soup.findAll('p')
 description = bs_descriptions[3].string
-header = headers[0:6]
+product_headers = headers[0:6]
 product_data = product_info[0:6]
 bs_titles = soup.findAll('h1')
 title = bs_titles[0].string
@@ -35,9 +35,12 @@ category = bs_categories[3].string
 review_rating = bs_descriptions[2].string
 image_url = soup.findAll('img')
 
+#Create lists to be called in dataframe
+Column_1 = ['Product Page URL', 'UPC', 'Book Title', 'Price Including Tax', 'Price Excluding Tax', 'Quantity Available', 'Product Description', 'Category', 'Review Rating', 'Image URL']
+Column_2 = [URL, product_data[0], title, product_data[3], product_data[2], product_data[5], bs_descriptions[3].string, category, review_rating, image_url]
 
 print(bs_descriptions[3].string)
-print(header[0].string, product_data[0].string)
+print(product_headers[0].string, product_data[0].string)
 print(title)
 print(category)
 print(review_rating)
