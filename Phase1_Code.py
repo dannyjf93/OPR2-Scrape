@@ -33,15 +33,20 @@ bs_categories = soup.find_all('a')
 category = bs_categories[3].string
 #How can I get the actual class (star-rating.Three) displayed as just the text of the class
 review_rating = bs_descriptions[2].string
-image_url = soup.findAll('img')
+image_tag = soup.findAll('img')
+image_url = [img['src'] for img in image_tag]
 
 #Create lists to be called in dataframe
 Column_1 = ['Product Page URL', 'UPC', 'Book Title', 'Price Including Tax', 'Price Excluding Tax', 'Quantity Available', 'Product Description', 'Category', 'Review Rating', 'Image URL']
-Column_2 = [URL, product_data[0], title, product_data[3], product_data[2], product_data[5], bs_descriptions[3].string, category, review_rating, image_url]
+Column_2 = [URL, product_data[0].string, title, product_data[3].string, product_data[2].string, product_data[5].string, bs_descriptions[3].string, category, review_rating, image_url]
 
-print(bs_descriptions[3].string)
-print(product_headers[0].string, product_data[0].string)
-print(title)
-print(category)
-print(review_rating)
-print(image_url)
+#create dataframe
+bookInformation = pd.DataFrame({'Book Information': Column_1,
+                                'Book Data': Column_2})
+
+df = pd.DataFrame(bookInformation)
+
+#Export dataframe as CSV
+book_csv_data = df.to_csv('bookData.csv', index=True)
+
+print('\nCSV String:\n', book_csv_data)
